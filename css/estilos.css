@@ -5,20 +5,40 @@
 }
 
 .imgfondo {
-    /*editamos la imagen de fonto para que el texto sea legible*/
-    background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.87)), url(../multimedia/pk.jpg);
+    /*editamos la imagen de fonto para que los textos sean legibles*/
+    background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.87)), url(../galeria/pk.jpg);
     width: 100%;
     background-size: cover;
 }
 
-.imghistoria img {
+.c1 {
+    /*Los nombres no son tan significativos ya que solo 1 contenedor a editar el fondo*/
+    background-color: rgb(0, 0, 0);
+}
+
+.pie p,
+.pie a {
+    font-size: 13px;
+}
+
+
+/*-----------------INICIO-----------------*/
+
+.historia {
+    background-color: rgb(10, 10, 10);
+}
+
+.historia div img {
     /*perzonalizamos el tamaño y la ubicacion de la imagen*/
     margin: 0px 10px 0 10px;
     float: right;
     width: 35%;
 }
 
-.imgyamakasi img {
+
+/*-----------------EJERCICIO 2-----------------*/
+
+#nav-yamakasi img {
     /*perzonalizamos el tamaño y la ubicacion de la imagen, ademas damos un tamaño minimo para no
         perderse la imagen al momento de que la pantalla sea chica*/
     margin: 0px 10px 0 10px;
@@ -28,7 +48,22 @@
     width: 35%;
 }
 
+#nav-movimientos img {
+    /*En las imagenes de TAB movimientos, ajustamos las imagenes para no deformarse y le damos
+    un altodeterminado y que se ajuste al card que se encuentra*/
+    height: 15rem;
+    object-fit: cover;
+}
+
+#nav-movimientos .card {
+    /*Los card que contienen las imagenes determinamos que ocupe el espacio util total y 
+    que su fondo cambie de color*/
+    height: 100%;
+    background-color: rgb(15, 15, 15);
+}
+
 .imgdan img {
+    /*la imagen principal que se ve en medida lg lo ajustamos que ocupe el ancho total*/
     width: 100%;
 }
 
@@ -37,26 +72,8 @@
     float: right;
 }
 
-.c1 {
-    /*Los nombres no son tan significativos ya que solo son 3 contenedores a editar el fondo*/
-    background-color: rgb(0, 0, 0);
-}
 
-.c2 {
-    background-color: rgba(238, 238, 238, 0.966);
-}
-
-.c3 {
-    background-color: rgb(255, 255, 255);
-}
-
-footer {
-    /*reducimos su tamaño para dejar importancia al contenido de la pagina*/
-    font-size: small;
-}
-
-
-/*Ejercicio 4*/
+/*-----------------EJERCICIO 4-----------------*/
 
 @media (min-width: 0.02px) {
     /*personalizamos todos los div's al agregarle borde*/
@@ -135,7 +152,7 @@ footer {
 }
 
 
-/*Ejercicio 5*/
+/*-----------------EJERCICIO 5-----------------*/
 
 
 /*Los colores al ser fijos no lo define por tamaños*/
