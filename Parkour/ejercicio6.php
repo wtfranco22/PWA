@@ -36,7 +36,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col d-none d-lg-block col-6 col-md-4 col-lg-2 item-box">
+                <div class="col d-none d-lg-block col-lg-2 item-box">
                     <div class="item-container">
                         <div class="piece">
                             <div class="puzzle"></div>
@@ -68,7 +68,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col d-none d-lg-block col-6 col-md-4 col-lg-2 item-box">
+                <div class="col d-none d-lg-block col-lg-2 item-box">
                     <div class="item-container">
                         <div class="piece">
                             <div class="puzzle"></div>
@@ -100,7 +100,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col d-none d-lg-block col-6 col-md-4 col-lg-2 item-box">
+                <div class="col d-none d-lg-block col-lg-2 item-box">
                     <div class="item-container">
                         <div class="piece">
                             <div class="puzzle"></div>
@@ -116,7 +116,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col d-none d-md-block col-6 col-md-4 col-lg-2 item-box">
+                <div class="col d-none d-md-block col-md-4 col-lg-2 item-box">
                     <div class="item-container">
                         <div class="piece">
                             <div class="puzzle"></div>
@@ -132,7 +132,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col d-none d-md-block col-6  col-md-4 col-lg-2 item-box">
+                <div class="col d-none d-md-block col-md-4 col-lg-2 item-box">
                     <div class="item-container">
                         <div class="piece">
                             <div class="puzzle"></div>
@@ -148,7 +148,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col d-none d-md-block col-6 col-md-4 col-lg-2 item-box">
+                <div class="col d-none d-md-block col-md-4 col-lg-2 item-box">
                     <div class="item-container">
                         <div class="piece">
                             <div class="puzzle"></div>
@@ -164,7 +164,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col d-none d-md-block col-6 col-md-4 col-lg-2 item-box">
+                <div class="col d-none d-md-block col-md-4 col-lg-2 item-box">
                     <div class="item-container">
                         <div class="piece">
                             <div class="puzzle"></div>
@@ -180,7 +180,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col d-none d-md-block col-6 col-md-4 col-lg-2 item-box">
+                <div class="col d-none d-md-block col-md-4 col-lg-2 item-box">
                     <div class="item-container">
                         <div class="piece">
                             <div class="puzzle"></div>
