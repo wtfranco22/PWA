@@ -1,5 +1,6 @@
 <?php include_once("./encabezado.php"); ?>
-    <div class="container-fluid c1">
+<div class="container-fluid c1">
+    <section>
         <div class="container text-center imgfondo">
             <div class="d-flex justify-content-center align-items-center min-vh-100">
                 <div>
@@ -11,6 +12,8 @@
                 </div>
             </div>
         </div>
+    </section>
+    <section>
         <div class="container historia p-md-5 min-vh-100">
             <h1>Historia</h1>
             <hr>
@@ -28,5 +31,6 @@
                 asistencia, honor y honestidad) y física (músculos y respiración)
             </p>
         </div>
-    </div>
+    </section>
+</div>
 <?php include_once("./footer.php"); ?>

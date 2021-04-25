@@ -6,10 +6,14 @@
     color: #e7e6d3;
 }
 
+option {
+    background-color: black;
+}
+
 .imgfondo {
     /*editamos la imagen de fonto para que los textos sean legibles*/
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.87))), url(./../galeria/pk.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.87)), url(./../galeria/pk.jpg);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.87))), url(./../galeria/fondo.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.87)), url(./../galeria/fondo.jpg);
     width: 100%;
     background-size: cover;
 }
@@ -54,7 +58,7 @@
 #nav-movimientos img {
     /*En las imagenes de TAB movimientos, ajustamos las imagenes para no deformarse y le damos
     un altodeterminado y que se ajuste al card que se encuentra*/
-    height: 15rem;
+    height: 13rem;
     -o-object-fit: cover;
     object-fit: cover;
 }
@@ -273,7 +277,7 @@
 }
 
 .item-box:nth-child(8) .puzzle:before {
-    background-image: url("./../galeria/doublekong.jpg");
+    background-image: url("./../galeria/kong.jpg");
 }
 
 .item-box:nth-child(9) .puzzle:before {
