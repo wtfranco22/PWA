@@ -7,6 +7,7 @@
  * de la base de datos, todo esto en solo al cargar la pagina
  */
 $(function() {
+
     $.get("./control/buscarGrupos.php", function(data) {
         //get por el llamado simple, sin parametro, buscamos los grupos de pk
         for (let i = 0; i < data.length; i++) {
@@ -17,9 +18,96 @@ $(function() {
             $('#grupo').append(agregar); //llevamos al html donde se encuentra el id
         }
     }, "json");
+
+    $.get("./control/buscarTitulosImagenes.php", function(data) {
+        for (let i = 0; i < 12; i++) {
+            idImagen = data[i].id_imagen;
+            nombreImagen = data[i].nombre_imagen;
+
+            //armo el modal
+
+            var modalFade = $('<div></div>');
+            modalFade.attr('class', 'modal fade');
+            modalFade.attr('id', 'c' + idImagen);
+            modalFade.attr('tabindex', '-1');
+            modalFade.attr('aria-labelledby', 'banderaLabel');
+            modalFade.attr('aria-hidden', 'true');
+
+
+            modalDialog = $('<div></div>');
+            modalDialog.attr('class', 'modal-dialog');
+
+            modalContent = $('<div></div>');
+            modalContent.attr('class', 'modal-content');
+
+
+            //armo los titulos de las imagenes con su boton
+
+            var li = $('<li></li>');
+            li.attr('class', 'd-grid gap-2');
+            var button = $('<button></button>');
+            button.attr('type', 'button');
+            button.attr('class', 'btn btn-outline-light');
+            button.attr('data-bs-toggle', 'modal');
+
+            button.attr('data-bs-target', '#c' + idImagen);
+            button.text(nombreImagen);
+            li.append(button);
+
+            //agrego los titulos como primer hijo del modalImagenes
+            $('#modalImagenes').children().first().append(li);
+
+            //aca armo el contenido que invoca cada titulo
+
+            divTitulo = $('<div></div>');
+            divTitulo.attr('class', 'modal-header c1');
+            divCuerpo = $('<div></div>');
+            divCuerpo.attr('class', 'modal-body c1');
+            titulo = $('<h5></h5>');
+            titulo.attr('class', 'modal-title');
+            titulo.text(nombreImagen);
+
+            botonCerrar = $('<button></button>');
+            botonCerrar.attr('type', 'button');
+            botonCerrar.attr('class', 'btn-close');
+            botonCerrar.attr('data-bs-dismiss', 'modal');
+            botonCerrar.attr('aria-label', 'Close');
+            imagen = $('<img></img>');
+            rutaImagen = data[i].ruta_imagen;
+            imagen.attr('src', rutaImagen);
+            imagen.attr('class', 'w-100');
+            imagen.attr('alt', nombreImagen);
+
+            //armo la estructura completa , desde los el los hijos hasta el padre
+            divTitulo.append(titulo);
+            divTitulo.append(botonCerrar);
+            divCuerpo.append(imagen);
+
+            modalContent.append(divTitulo);
+            modalContent.append(divCuerpo);
+            modalDialog.append(modalContent);
+            modalFade.append(modalDialog);
+            $('#modalImagenes').append(modalFade);
+
+        }
+    }, "json");
     cargarTablaTraceur(0); //creamos la tabla y por defecto cargamos 'cero'
 });
-
+$('#campoEstado').on("change", function() {
+    $.post("./control/buscarProvincias.php", { caracter: this.value }, function(data) {
+        alert(data);
+        $('#campoSugerencias').empty();
+        var sugerencias = "";
+        for (let i = 0; i < data.length; i++) {
+            var item = $('<li></li>');
+            item.attr('class', 'list-group-item');
+            var objEstado = data[i];
+            sugerencias = objEstado.nombreEstado;
+            item.text(sugerencias);
+            $("#campoSugerencias").append(item);
+        }
+    }, "json");
+})
 
 /**
  * al cambiar de valor el select de id #grupo vamos a buscar a todos los integrantes de pk
