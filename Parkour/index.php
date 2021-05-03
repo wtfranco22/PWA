@@ -15,7 +15,7 @@
     </section>
     <section>
         <div class="container historia p-md-5 min-vh-100">
-            <h1>Historia mitologia</h1>
+            <h1>Historia mitologiaaa</h1>
             <hr>
             <div class="d-none d-md-block">
                 <img src="galeria/historia.jpg" alt="metodo natural de preparacion fisica">
