@@ -4,7 +4,7 @@
         <div class="container text-center imgfondo">
             <div class="d-flex justify-content-center align-items-center min-vh-100">
                 <div>
-                    <h1 class="pb-3">¿Qué es el parkour?!!!!!!!</h1>
+                    <h1 class="pb-3">¿Qué es el parkour?!!!!!!! hola franco</h1>
                     <h5 class="mt-5">El parkour, es una disciplina física basada en la capacidad motriz del individuo, desarrollado a partir del método natural. Los practicantes son denominados traceurs/traceuses y tienen como objetivo trasladarse de un punto a otro del
                         entorno de la manera más sencilla y eficiente posible, adaptándose a las exigencias del mismo con la sola ayuda de su cuerpo. Además, se puede considerar una forma de expresión en cuanto a la libertad, el contacto con todo medio
                         externo y el dominio sobre el propio movimiento natural de cada individuo.El parkour se practica tanto individual como colectivo en cualquier entorno, no exclusivamente en espacios urbanos.
