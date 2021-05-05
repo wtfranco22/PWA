@@ -1,39 +1,18 @@
 <?php
-$servername = "127.0.0.1";
-$username = "root";
-$password = "";
-$dbname = "parkour";
-$port = "3306";
-// Create connection
-$mysqli = new mysqli($servername, $username, $password, $dbname, $port);
-if ($mysqli->connect_errno) {
-  echo "Fallo al conectar a MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+include_once('../autoload.php');
+/**
+ * el nivel de imagen es mayor a cero xq si es igual a cero se encontrarian
+ * las imagenes que utiliza la misma pagina, agrupamos y tomamos la primer imagen
+ * que devuelva del agrupamiento por nombre, y pedimos solo 12 tuplas
+ */
+$coleccionImagenes = Imagen::listar('nivel_imagen>0 GROUP BY(nombre_imagen) LIMIT 12');
+$res=[];
+foreach($coleccionImagenes as $objImagen){
+    $res[]= ['id_imagen'=>$objImagen->getIdImagen(),
+        'nombre_imagen'=>$objImagen->getNombre(),
+        'ruta_imagen'=>$objImagen->getRuta(),
+        'descripcion_imagen'=>$objImagen->getDescripcion()
+      ];
 }
-$sql = "SELECT * FROM imagen WHERE  nivel_imagen>0";
-$consulta = $mysqli->query($sql);
-
-if (!$consulta) {
-  die('Consulta no válida: ');
-} else {
-  $i=0;
-  $array = array();
-  while ($row = $consulta->fetch_assoc()) {
-    $array[$i]=$row;
-    $i++;
-  }
-  $temp = array();
-  $new = array();
-  foreach($array as $value){
-      if(!in_array($value["nombre_imagen"],$temp)){
-        $temp[] = $value["nombre_imagen"];
-        $new[] = $value;
-      }
-  }
-  
-  $res = json_encode($new);
-  
-}
-
-print_r($res);
-$mysqli->close();
-
+print_r(json_encode($res));
+?>
