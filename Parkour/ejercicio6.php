@@ -1,5 +1,6 @@
 <?php include_once("./encabezado.php"); ?>
 <div class="container-fluid c1">
+<!--Aca vamos a tener un introducctorio que interpreta un coach mundial dentro del parkour-->
     <div class="container min-vh-100">
         <section>
             <div class="row">
@@ -23,6 +24,7 @@
     <div class="container imgfondo min-vh-100">
         <section>
             <div class="row mb-5 c1">
+            <!--Estos espacios estan para las partes de las fotografias rompecabezas-->
                 <div class="col col-6 col-md-4 col-lg-2 item-box">
                     <div class="item-container">
                         <div class="piece">
@@ -227,6 +229,7 @@
             </div>
         </section>
     </div>
+    <!--Vamos a contener una tabla en este div, que se cargara con la base de datos-->
     <div class="container min-vh-100">
         <section>
             <div class="row table-responsive">
@@ -244,6 +247,7 @@
                     <tbody>
                     </tbody>
                 </table>
+                <!--Botones para avanzar o retrocer sobre la pagina-->
                 <nav class="d-flex justify-content-center">
                     <ul class="pagination" id="pag">
                         <li class="page-item disabled">
