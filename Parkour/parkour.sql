@@ -283,10 +283,11 @@ INSERT INTO imagen (id_traceur, nombre_imagen, ruta_imagen, descripcion_imagen, 
 CREATE TABLE suscriptor(
   nombre_suscriptor varchar(50) PRIMARY KEY,
   empresa_suscriptor varchar(100) NOT NULL,
-  id_estado bigint(20) NOT NULL,
+  contra_suscriptor text NOT NULL,
+  id_provincia bigint(20) NOT NULL,
   telefono_suscriptor int NOT NULL,
   email_suscriptor text NOT NULL,
-  FOREIGN KEY (id_estado) REFERENCES provincia(id_provincia) ON UPDATE CASCADE ON DELETE RESTRICT
+  FOREIGN KEY (id_provincia) REFERENCES provincia(id_provincia) ON UPDATE CASCADE ON DELETE RESTRICT
 )ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 CREATE TABLE comentario(
