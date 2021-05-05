@@ -279,7 +279,6 @@
                     $("#validarUsuario").text("Usuario registrado");
                     $("#usuario").addClass("is-invalid");
                 } else {
-                    $("#validarUsuario").text("Usuario no valido");
                     $("#usuario").addClass("is-valid");
                 }
             });
@@ -290,12 +289,14 @@
     });
     //verificamos que la contrasena cumpla con los requisitos minimos basados en regex
     $("#contrasena").on("change", function() {
+        $("#validarContrasena").empty();
         $("#contrasena").hasClass("is-valid") ? $("#contrasena").removeClass("is-valid") : $("#contrasena").removeClass("is-invalid");
         var expRegContrasena = /^[a-zA-z0-9-_.áúíóúÁÉÍÓÚÑñ]{8,}$/;
         if (expRegContrasena.test(this.value)) {
             $("#contrasena").addClass("is-valid");
         } else {
             $("#contrasena").addClass("is-invalid");
+            (this.value.length >= 8) ? $("#validarContrasena").text("Caracteres inválidos"): $("#validarContrasena").text("Mínimo 8 caracteres");
         }
     });
     /**
@@ -312,7 +313,6 @@
                     $("#email").addClass("is-invalid");
                     $("#validarEmail").text("Esta email ya esta registrado");
                 } else {
-                    $("#validarEmail").text("Email no valido");
                     $("#email").addClass("is-valid");
                 }
             });
@@ -324,12 +324,14 @@
 
     //solo verificamos que la logitud superar a 10 y solo sean numeros
     $("#telefono").on("change", function() {
+        $("#validarTelefono").empty();
         $("#telefono").hasClass("is-valid") ? $("#telefono").removeClass("is-valid") : $("#telefono").removeClass("is-invalid");
         var expRegTelefono = /^[0-9]{10,}$/;
         if (expRegTelefono.test(this.value)) {
             $("#telefono").addClass("is-valid");
         } else {
             $("#telefono").addClass("is-invalid");
+            (this.value.length >= 10) ? $("#validarTelefono").text("Caracteres inválidos"): $("#validarTelefono").text("Mínimo 10 números");
         }
     });
 
