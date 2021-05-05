@@ -2,40 +2,43 @@
 class Traceur
 {
     private $idTraceur;
-    private $idGrupo;
+    private $objGrupo;
     private $apellido;
     private $nombre;
-    private $pais;
+    private $objPais;
     private $fechaNacimiento;
     private $biografia;
+    private $coleccionImagenes;
     private $mensajeoperacion;
 
     public function __construct()
     {
-        $this->idTraceur = "";
-        $this->idGrupo = "";
+        $this->idTraceur = 0;
+        $this->objGrupo = new Equipo();
         $this->apellido = "";
         $this->nombre = "";
-        $this->pais = "";
-        $this->fechaNacimiento =date('Y-m-d');
+        $this->objPais = new Pais();
+        $this->fechaNacimiento = "";
         $this->biografia = "";
+        $this->coleccionImagenes=[];
         $this->mensajeoperacion = "";
     }
 
     /**
      * @param int $id
-     * @param int $idGrup
+     * @param Equipo $grup
      * @param string $apellido
      * @param string $nombre
-     * @param string $pais
+     * @param Pais $pais
      * @param Date $fechaNac
      * @param string $biografia
+     * @param array $coleccionImagenes
      */
-    public function setear($id,$idGrup,$nombre, $apellido, $fechaNac, $biografia, $pais)
+    public function setear($id,$grup,$nombre, $apellido, $fechaNac, $biografia, $pais)
     {
         $this->setIdTraceur($id);
-        $this->setIdGrupo($idGrup);
-        $this->setPais($pais);
+        $this->setObjGrupo($grup);
+        $this->setObjPais($pais);
         $this->setApellido($apellido);
         $this->setNombre($nombre);
         $this->setFechaNacimiento($fechaNac);
@@ -49,18 +52,18 @@ class Traceur
     {
         return $this->idTraceur;
     }/**
-     * @return int
+     * @return Equipo
      */
-    public function getIdGrupo()
+    public function getObjGrupo()
     {
-        return $this->idGrupo;
+        return $this->objGrupo;
     }
     /**
-     * @return string
+     * @return Pais
      */
-    public function getPais()
+    public function getObjPais()
     {
-        return $this->pais;
+        return $this->objPais;
     }
     /**
      * @return string
@@ -86,9 +89,16 @@ class Traceur
     /**
      * @param string
      */
-    private function getbiografia()
+    public function getBiografia()
     {
         return $this->biografia;
+    }
+    /**
+     * @return array
+     */
+    public function getImagenes()
+    {
+        return $this->coleccionImagenes;
     }
     /**
      * @return string
@@ -105,18 +115,18 @@ class Traceur
         $this->idTraceur = $id;
     }
     /**
-     * @param int $idGrup
+     * @param Equipo $grup
      */
-    public function setIdGrupo($idGrup)
+    public function setObjGrupo($grup)
     {
-        $this->idTraceur = $idGrup;
+        $this->objGrupo = $grup;
     }
     /**
-     * @param string $pais
+     * @param Pais $pais
      */
-    public function setpais($pais)
+    public function setObjPais($pais)
     {
-        $this->pais = $pais;
+        $this->objPais = $pais;
     }
     /**
      * @param string $nombre
@@ -147,6 +157,13 @@ class Traceur
         $this->biografia = $bio;
     }
     /**
+     * @param array $imgs
+     */
+    public function setImagenes($imgs)
+    {
+        $this->coleccionImagenes = $imgs;
+    }
+    /**
      * @param string $valorMensaje
      */
     public function setmensajeoperacion($valorMensaje)
@@ -162,13 +179,20 @@ class Traceur
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "SELECT * FROM traceur WHERE idTraceur = " . $this->getIdTraceur();
+        $sql = "SELECT * FROM traceur WHERE id_traceur = " . $this->getIdTraceur();
         if ($base->Iniciar()) {
             $res = $base->Ejecutar($sql);
             if ($res > -1) {
                 if ($res > 0) {
-                    $row = $base->Registro();
-                    $this->setear($row['idtraceur'],$row['idgrupo'],$row['pais'], $row['apellido'], $row['nombre'], $row['fechanacimiento'], $row['biografia']);
+                    $fila = $base->Registro();
+                    $objGrupo = new Equipo();
+                    $objGrupo->setIdEquipo($fila['id_grupo']);
+                    $objGrupo->cargar();
+                    $objPais = new Pais();
+                    $objPais->setIdPais($fila['id_pais']);
+                    $objPais->cargar();
+                    $this->setear($fila['id_traceur'],$objGrupo, $fila['nombre_traceur'], $fila['apellido_traceur'], $fila['fechanacimiento_traceur'], $fila['biografia_traceur'],$objPais);
+                    $resp = true;
                 }
             }
         } else {
@@ -186,7 +210,7 @@ class Traceur
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "INSERT INTO traceur (idgrupo, nombre, apellido, pais, fechanacimiento, biografia)  VALUES('" . $this->getIdGrupo() . "' , '" . $this->getNombre() . "' ,'" . $this->getApellido() . "' , '" . $this->getPais() . "' , '" . $this->getFechaNacimiento() . "' , '" . $this->getBiografia() . "');";
+        $sql = "INSERT INTO traceur (id_grupo, nombre_traceur, apellido_traceur, id_pais, fechanacimiento_traceur, biografia_traceur)  VALUES(" . $this->getObjGrupo()->getIdEquipo() . " , '" . $this->getNombre() . "' ,'" . $this->getApellido() . "' , '" . $this->getObjPais()->getIdPais() . "' , '" . $this->getFechaNacimiento() . "' , '" . $this->getBiografia() . "');";
         if ($base->Iniciar()) {
             if ($idTc = $base->Ejecutar($sql)) {
                 //al ejecutar nos devuelve la cantidad de inserciones realizadas, nuestro id
@@ -210,7 +234,7 @@ class Traceur
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "UPDATE traceur SET idgrupo='" . $this->getIdGrupo() . "' ,apellido='" . $this->getApellido() . "', nombre='" . $this->getNombre() . "', pais='" . $this->getPais() . "', fechanacimiento='" . $this->getFechaNacimiento() . "', biografia='" . $this->getBiografia() . "' WHERE idTraceur='" . $this->getidTraceur() . "'";
+        $sql = "UPDATE traceur SET id_grupo=" . $this->getObjGrupo()->getIdEquipo() . " ,apellido_traceur='" . $this->getApellido() . "', nombre_traceur='" . $this->getNombre() . "', id_pais='" . $this->getObjPais()->getIdPais() . "', fechanacimiento_traceur='" . $this->getFechaNacimiento() . "', biografia_traceur='" . $this->getBiografia() . "' WHERE id_traceur=" . $this->getIdTraceur();
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -232,7 +256,7 @@ class Traceur
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "DELETE FROM traceur WHERE idTraceur=" . $this->getidTraceur();
+        $sql = "DELETE FROM traceur WHERE id_traceur=" . $this->getidTraceur();
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 return true;
@@ -263,9 +287,16 @@ class Traceur
         $res = $base->Ejecutar($sql);
         if ($res > -1) {
             if ($res > 0) {
-                while ($row = $base->Registro()) {
+                while ($fila = $base->Registro()) {
                     $obj = new traceur();
-                    $obj->setear($row['idtraceur'],$row['idgrupo'], $row['pais'], $row['apellido'], $row['nombre'], $row['fechanacimiento'], $row['biografia']);
+                    $objGrupo = new Equipo();
+                    $objGrupo->setIdEquipo($fila['id_grupo']);
+                    $objGrupo->cargar();
+                    $objPais = new Pais();
+                    $objPais->setIdPais($fila['id_pais']);
+                    $objPais->cargar();
+                    $obj->setear($fila['id_traceur'],$objGrupo, $fila['nombre_traceur'], $fila['apellido_traceur'], $fila['fechanacimiento_traceur'], $fila['biografia_traceur'],$objPais);
+                    $obj->cargarImagenes();
                     array_push($arreglo, $obj);
                 }
             }
@@ -273,5 +304,13 @@ class Traceur
             Traceur::setmensajeoperacion("Traceur->listar: " . $base->getError());
         }
         return $arreglo;
+    }
+
+    /**
+     * vamos a cargar las coleccionImagenes si es que el usuario posee
+     * si no se agrego ninguna imagen devolvemos falso
+     */
+    public function cargarImagenes(){
+        $this->setImagenes(Imagen::listar('id_traceur='.$this->getIdTraceur()));
     }
 }
