@@ -10,26 +10,26 @@
             </p>
         </section>
         <section>
-            <div>
-                <article>
-                    <div class="row">
-                        <form class="col-12" action="#" method="POST">
-                            <label for="grupos" class="form-label">Grupo a seleccionar</label>
-                            <select id="grupo" class="form-select">
-                                <option value="">Grupos</option>
-                            </select>
-                        </form>
-                </article>
-                <article>
-                    <form class="col-12" action="#" method="POST">
+        <!--Vamos a contenemos 2 formulario, el primero se carga al iniciar la pagina y la segunda carga sus elementos
+        en el momento que el primer select fue seleccionado a valido-->
+            <article>
+                <div class="row">
+                    <form class="col-12 col-md-6" action="#" method="POST">
+                        <label for="grupo" class="form-label">Grupo a seleccionar</label>
+                        <select id="grupo" class="form-select">
+                            <option value="">Grupos</option>
+                        </select>
+                    </form>
+                    <form class="col-12 col-md-6" action="#" method="POST">
                         <label for="integrantes" class="form-label">Integrantes a seleccionar</label>
                         <select id="integrantes" class="form-select">
                             <option value="">Integrantes</option>
                         </select>
                     </form>
-                </article>
-            </div>
+                </div>
+            </article>
         </section>
+        <!--En este section vamos a dejar para agregar el contenido del traceur, ya sea su biografia con sus fotografias-->
         <section>
             <div id="contenidotraceur" class="text-center pt-5">
             </div>

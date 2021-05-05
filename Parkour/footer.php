@@ -4,6 +4,7 @@
                 <p class="text-center">
                     Escuelas de Parkour-Freerunning
                 </p>
+                <!--A continuacion es un espacio para los link externos-->
                 <aside>
                     <ul>
                         <li>
@@ -28,6 +29,7 @@
                         </li>
                     </ul>
                 </aside>
+                <!--Este espacio esta destinado al contacto del desarrollador-->
             </div>
             <div class="col col-6 col-md-4">
                 <aside>
@@ -56,7 +58,7 @@
         </div>
     </footer>
     <script src="./js/bootstrap.min.js"></script>
-    <script src="./js/jquery.js"></script>
+    <script src="./js/jquery.min.js"></script>
     <script src="./js/consultar.js"></script>
     </body>
 

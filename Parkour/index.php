@@ -1,6 +1,7 @@
 <?php include_once("./encabezado.php"); ?>
 <div class="container-fluid c1">
     <section>
+    <!--Aca se encuentra el texto de inicio con su imagen de fondo, comenzando la pagina-->
         <div class="container text-center imgfondo">
             <div class="d-flex justify-content-center align-items-center min-vh-100">
                 <div>
@@ -14,6 +15,7 @@
         </div>
     </section>
     <section>
+    <!--Escribimos un poco de historia sobre el parkour, sus comienzos-->
         <div class="container historia p-md-5 min-vh-100">
             <h1>Historia</h1>
             <hr>
