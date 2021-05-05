@@ -1,22 +1,15 @@
 <?php
-$servername = "127.0.0.1";
-$username = "root";
-$password = "";
-$dbname = "parkour";
-$port = "3306";
-
-// Create connection
-$mysqli = new mysqli($servername, $username, $password, $dbname, $port);
-if ($mysqli->connect_errno) {
-  echo "Fallo al conectar a MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+include_once('../autoload.php');
+/**
+ * siempre la condicion en equipo y imagen 1, es por la base de datos,
+ * siempre >1 xq estan guardadas las fotos sobre la pagina bd
+ */
+$coleccionGrupos = Equipo::listar('id_equipo>1');
+$resultado = [];
+foreach($coleccionGrupos as $objGrupo){
+  $resultado[]=[
+    "id_equipo"=>$objGrupo->getIdEquipo(),
+    "nombre_equipo"=>$objGrupo->getNombre()
+  ];
 }
-$sql = "SELECT * FROM equipo WHERE id_equipo > 1";
-$consulta = $mysqli->query($sql);
-if (!$consulta) {
-  die('Consulta no válida: ');
-}
-$grupos = $consulta->fetch_all(MYSQLI_ASSOC);
-$res = json_encode($grupos);
-echo $res;
-$mysqli->close();
-
+print_r(json_encode($resultado));
