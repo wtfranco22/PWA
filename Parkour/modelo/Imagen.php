@@ -2,37 +2,37 @@
 class Imagen
 {
     private $idImagen;
-    private $idTraceur;
+    private $objTraceur;
     private $nivel;
     private $nombre;
-    private $img;
+    private $ruta;
     private $descripcion;
     private $mensajeoperacion;
 
     public function __construct()
     {
-        $this->idImagen = "";
-        $this->idTraceur = "";
+        $this->idImagen = 0;
+        $this->objTraceur = new Traceur();
         $this->nivel = "";
         $this->nombre = "";
-        $this->img = "";
+        $this->ruta = "";
         $this->descripcion = "";
         $this->mensajeoperacion = "";
     }
 
     /**
      * @param int $id
-     * @param int $idTraceur
+     * @param Traceur $objTraceur
      * @param int $nivel
      * @param string $nombre
-     * @param string $img
+     * @param string $ruta
      * @param string $descripcion
      */
-    public function setear($id, $idTraceur,$nombre,$img, $descripcion,$nivel)
+    public function setear($id, $objTraceur,$nombre,$ruta, $descripcion,$nivel)
     {
         $this->setIdImagen($id);
-        $this->setIdTraceur($idTraceur);
-        $this->setImg($img);
+        $this->setObjTraceur($objTraceur);
+        $this->setRuta($ruta);
         $this->setNivel($nivel);
         $this->setNombre($nombre);
         $this->setDescripcion($descripcion);
@@ -45,18 +45,18 @@ class Imagen
     {
         return $this->idImagen;
     }/**
-     * @return int
+     * @return Traceur
      */
-    public function getIdTraceur()
+    public function getObjTraceur()
     {
-        return $this->idTraceur;
+        return $this->objTraceur;
     }
     /**
      * @return string
      */
-    public function getImg()
+    public function getRuta()
     {
-        return $this->img;
+        return $this->ruta;
     }
     /**
      * @return string
@@ -75,7 +75,7 @@ class Imagen
     /**
      * @param string
      */
-    private function getDescripcion()
+    public function getDescripcion()
     {
         return $this->descripcion;
     }
@@ -94,18 +94,18 @@ class Imagen
         $this->idImagen = $id;
     }
     /**
-     * @param int $idTrac
+     * @param Traceur $objTrac
      */
-    public function setIdTraceur($idTrac)
+    public function setObjTraceur($objTrac)
     {
-        $this->idTraceur = $idTrac;
+        $this->objTraceur = $objTrac;
     }
     /**
-     * @param string $img
+     * @param string $ruta
      */
-    public function setImg($img)
+    public function setRuta($ruta)
     {
-        $this->img = $img;
+        $this->ruta = $ruta;
     }
     /**
      * @param string $nombre
@@ -144,13 +144,17 @@ class Imagen
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "SELECT * FROM imagen WHERE idimagen = " . $this->getIdImagen();
+        $sql = "SELECT * FROM imagen WHERE id_imagen = " . $this->getIdImagen();
         if ($base->Iniciar()) {
             $res = $base->Ejecutar($sql);
             if ($res > -1) {
                 if ($res > 0) {
-                    $row = $base->Registro();
-                    $this->setear($row['idimagen'],$row['idtraceur'],$row['nombre'], $row['img'], $row['descripcion'], $row['img']);
+                    $fila = $base->Registro();
+                    $objTraceur = new Traceur();
+                    $objTraceur->setIdTraceur($fila['id_traceur']);
+                    $objTraceur->cargar();
+                    $this->setear($fila['id_imagen'],$objTraceur,$fila['nombre_imagen'], $fila['ruta_imagen'], $fila['descripcion_imagen'], $fila['nivel_imagen']);
+                    $resp = true;
                 }
             }
         } else {
@@ -168,7 +172,7 @@ class Imagen
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "INSERT INTO imagen (idtraceur, nombre, img, descripcion, nivel)  VALUES('" . $this->getIdTraceur() . "' , '" . $this->getNombre() . "' ,'" . $this->getImg() . "' , '" . $this->getDescripcion() . "' , '" . $this->getNivel() . "');";
+        $sql = "INSERT INTO imagen (id_traceur, nombre_imagen, ruta_imagen, descripcion_imagen, nivel_imagen)  VALUES(" . $this->getObjTraceur()->getIdTraceur() . " , '" . $this->getNombre() . "' ,'" . $this->getRuta() . "' , '" . $this->getDescripcion() . "' , '" . $this->getNivel() . "');";
         if ($base->Iniciar()) {
             if ($idTc = $base->Ejecutar($sql)) {
                 //al ejecutar nos devuelve la cantidad de inserciones realizadas, nuestro id
@@ -192,7 +196,7 @@ class Imagen
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "UPDATE imagen SET nivel='" . $this->getNivel() . "', nombre='" . $this->getNombre() . "', img='" . $this->getImg() . "', descripcion='" . $this->getDescripcion() . "' WHERE idimagen='" . $this->getIdImagen() . "'";
+        $sql = "UPDATE imagen SET id_traceur=" . $this->getObjTraceur()->getIdTraceur() . ", nivel_imagen=" . $this->getNivel() . ", nombre_imagen='" . $this->getNombre() . "', ruta_imagen='" . $this->getRuta() . "', descripcion_imagen='" . $this->getDescripcion() . "' WHERE id_imagen=" . $this->getIdImagen();
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -214,7 +218,7 @@ class Imagen
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "DELETE FROM imagen WHERE idimagen=" . $this->getIdImagen();
+        $sql = "DELETE FROM imagen WHERE id_imagen=" . $this->getIdImagen();
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 return true;
@@ -230,7 +234,7 @@ class Imagen
     /**
      * guardamos los imagenes en un arreglo para poder manipular sobre ellos,
      * tenemos el parametro para cualquier especificacion sobre la busqueda de los imagenes
-     * pero si el parametro es vacio solamente mostrarmos a los traceurs sin restricciones
+     * pero si el parametro es vacio solamente mostrarmos a los objTraceurs sin restricciones
      * @param string $parametro
      * @return array
      */
@@ -245,9 +249,12 @@ class Imagen
         $res = $base->Ejecutar($sql);
         if ($res > -1) {
             if ($res > 0) {
-                while ($row = $base->Registro()) {
+                while ($fila = $base->Registro()) {
                     $obj = new Imagen();
-                    $obj->setear($row['idimagen'],$row['idtraceur'], $row['nombre'], $row['img'], $row['descripcion'], $row['nivel']);
+                    $objTraceur = new Traceur();
+                    $objTraceur->setIdTraceur($fila['id_traceur']);
+                    $objTraceur->cargar();
+                    $obj->setear($fila['id_imagen'],$objTraceur, $fila['nombre_imagen'], $fila['ruta_imagen'], $fila['descripcion_imagen'], $fila['nivel_imagen']);
                     array_push($arreglo, $obj);
                 }
             }
