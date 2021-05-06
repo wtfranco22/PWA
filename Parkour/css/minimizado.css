@@ -394,6 +394,14 @@
     height: 12.8812875vmin;
     background-size: 155.264%;
 }
+@media (max-width:300px){
+
+    body{
+        display: none;
+    }
+}
+
+
 
 @-webkit-keyframes init {
     from {
